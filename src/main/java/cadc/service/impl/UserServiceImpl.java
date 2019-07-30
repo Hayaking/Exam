@@ -29,12 +29,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public boolean add(User user) {
-        return false;
+        int res = userMapper.insert(user);
+        return res > 0;
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+
+        return userMapper.deleteById(id) > 0;
     }
 
     @Override
@@ -59,12 +61,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public IPage<User> getByClazz(Page<User> page, String clazz) {
-        return null;
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("clazz", clazz);
+        return userMapper.selectPage(page,wrapper);
     }
 
     @Override
     public IPage<User> getBySchool(Page<User> page, int schoolId) {
-        return null;
+        QueryWrapper<User> wrapper =new QueryWrapper<>();
+        wrapper.eq("school_id",schoolId);
+        return userMapper.selectPage(page,wrapper);
     }
 
     @Override
