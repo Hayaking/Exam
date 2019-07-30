@@ -23,8 +23,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User get(String account, String password) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq( "account", account ).eq( "password", password );
-        return userMapper.selectOne( wrapper );
+        wrapper.eq("account", account).eq("password", password);
+        return userMapper.selectOne(wrapper);
     }
 
     @Override
@@ -35,42 +35,49 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public boolean delete(int id) {
-
         return userMapper.deleteById(id) > 0;
     }
 
     @Override
     public boolean deleteByAccount(String account) {
-        return false;
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("account",account);
+        return userMapper.delete(wrapper) > 0;
     }
 
     @Override
     public User getByAccount(String account) {
-        return null;
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("account", account);
+        return userMapper.selectOne(wrapper);
     }
 
     @Override
     public User getByName(String name) {
-        return null;
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("name",name);
+        return userMapper.selectOne(wrapper);
     }
 
     @Override
     public IPage<User> getAll(Page<User> page) {
-        return null;
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        return userMapper.selectPage(page, wrapper);
     }
 
     @Override
+
     public IPage<User> getByClazz(Page<User> page, String clazz) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("clazz", clazz);
-        return userMapper.selectPage(page,wrapper);
+        return userMapper.selectPage(page, wrapper);
     }
 
     @Override
     public IPage<User> getBySchool(Page<User> page, int schoolId) {
-        QueryWrapper<User> wrapper =new QueryWrapper<>();
-        wrapper.eq("school_id",schoolId);
-        return userMapper.selectPage(page,wrapper);
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("school_id", schoolId);
+        return userMapper.selectPage(page, wrapper);
     }
 
     @Override
