@@ -23,6 +23,7 @@ public class User extends Model<User> implements Serializable {
     private String account;
     private String password;
     private String clazz;
+    private String name;
     private String sex;
     private int schoolId;
 }
