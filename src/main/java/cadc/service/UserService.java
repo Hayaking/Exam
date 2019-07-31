@@ -21,12 +21,7 @@ public interface UserService extends IService<User> {
 
     User getByName(String name);
 
-    /**
-     * 获取所有的用户信息
-     * @param page 分页
-     * @return
-     */
-    IPage<User> getAll(Page<User> page);
+    IPage<User> getAllStudent(Page<User> page);
 
     IPage<User> getByClazz(Page<User> page, String clazz);
 

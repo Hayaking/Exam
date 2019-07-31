@@ -16,6 +16,10 @@ public class UserToken extends UsernamePasswordToken {
         this.loginType = loginType;
     }
 
+    public UserToken(String username, String password) {
+        super( username, password );
+    }
+
     public String getLoginType() {
         return loginType;
     }

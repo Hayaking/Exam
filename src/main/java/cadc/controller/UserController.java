@@ -29,7 +29,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/students/{pageNum}/{pageSize}", method = RequestMethod.GET)
     public Object getStudents(@PathVariable int pageNum, @PathVariable int pageSize) {
-        IPage<User> all = userService.getAll( new Page<>( pageNum, pageSize ) );
+        IPage<User> all = userService.getAllStudent( new Page<>( pageNum, pageSize ) );
         return MessageFactory.message( SUCCESS, all );
     }
 
