@@ -69,7 +69,6 @@ public class UserRealm extends AuthorizingRealm {
         UserToken userToken = (UserToken) token;
         String account = (String) userToken.getPrincipal();
         String passWord = new String( (char[]) userToken.getCredentials() );
-        String loginType = userToken.getLoginType();
         User user = userService.get( account, passWord );
         if (user == null || user.getAccount() == null) {
             throw new UnknownAccountException();

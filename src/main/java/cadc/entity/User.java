@@ -1,5 +1,6 @@
 package cadc.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -25,5 +26,6 @@ public class User extends Model<User> implements Serializable {
     private String clazz;
     private String name;
     private String sex;
-    private int schoolId;
+    @TableField(exist = false)
+    private String schoolName;
 }

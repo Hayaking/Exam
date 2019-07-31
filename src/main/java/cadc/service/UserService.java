@@ -21,7 +21,7 @@ public interface UserService extends IService<User> {
 
     User getByName(String name);
 
-    IPage<User> getAll(Page<User> page);
+    IPage<User> getAllStudent(Page<User> page);
 
     IPage<User> getByClazz(Page<User> page, String clazz);
 

@@ -41,6 +41,9 @@ public class QuestionController {
                 return multiQuestionService.getById( id );
             case "essay":
                 return essayQuestionService.getById( id );
+                default:
+                    break;
+
         }
         return null;
     }
