@@ -3,6 +3,7 @@ package cadc.service.impl;
 import cadc.entity.EssayQuestion;
 import cadc.mapper.EssayQuestionMapper;
 import cadc.service.EssayQuestionService;
+import cadc.util.Utils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,7 +25,13 @@ public class EssayQuestionServiceImpl extends ServiceImpl<EssayQuestionMapper, E
 
     @Override
     public List<EssayQuestion> getRandom(int size) {
-        return null;
+        QueryWrapper<EssayQuestion> wrapper = new QueryWrapper<>();
+        Integer all = essayQuestionMapper.selectCount( wrapper );
+        int[] arr = Utils.random( all, size );
+        for (int i : arr) {
+            wrapper.eq( "id", i );
+        }
+        return essayQuestionMapper.selectList( wrapper );
     }
 
     @Override
