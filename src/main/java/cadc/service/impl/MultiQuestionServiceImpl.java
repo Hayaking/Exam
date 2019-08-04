@@ -1,8 +1,10 @@
 package cadc.service.impl;
 
 import cadc.entity.MultiQuestion;
+import cadc.entity.SingleQuestion;
 import cadc.mapper.MultiQuestionMapper;
 import cadc.service.MultiQuestionService;
+import cadc.util.Utils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,7 +26,14 @@ public class MultiQuestionServiceImpl extends ServiceImpl<MultiQuestionMapper, M
 
     @Override
     public List<MultiQuestion> getRandom(int size) {
-        return null;
+        QueryWrapper<MultiQuestion> wrapper = new QueryWrapper<>();
+        Integer all = multiQuestionMapper.selectCount( wrapper );
+        int[] arr = Utils.random( all, size );
+        for (int i = 0; i <= arr.length-1; i++) {
+            wrapper.eq( "id", arr[i] ).or();
+        }
+        wrapper.eq( "id", arr[arr.length - 1] );
+        return multiQuestionMapper.selectList( wrapper );
     }
 
     @Override

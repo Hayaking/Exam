@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,6 +29,12 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
 
     @Override
     public Map<String, Object> generatePaper(Paper paper, int eSize, int jSize, int mSize, int sSize) {
-        return null;
+        HashMap<String, Object> map = new HashMap<>( 5 );
+        map.put( "paper", paper );
+        map.put( "essay", essayQuestionService.getRandom( eSize ) );
+        map.put( "judge", judgeQuestionService.getRandom( eSize ) );
+        map.put( "multi", multiQuestionService.getRandom( eSize ) );
+        map.put( "single", singleQuestionService.getRandom( eSize ) );
+        return map;
     }
 }

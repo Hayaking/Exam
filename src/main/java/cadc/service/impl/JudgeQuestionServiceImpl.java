@@ -1,8 +1,10 @@
 package cadc.service.impl;
 
+import cadc.entity.EssayQuestion;
 import cadc.entity.JudgeQuestion;
 import cadc.mapper.JudgeQuestionMapper;
 import cadc.service.JudgeQuestionService;
+import cadc.util.Utils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -25,7 +27,14 @@ public class JudgeQuestionServiceImpl extends ServiceImpl<JudgeQuestionMapper, J
 
     @Override
     public List<JudgeQuestion> getRandom(int size) {
-        return null;
+        QueryWrapper<JudgeQuestion> wrapper = new QueryWrapper<>();
+        Integer all = judgeQuestionMapper.selectCount( wrapper );
+        int[] arr = Utils.random( all, size );
+        for (int i = 0; i <= arr.length-1; i++) {
+            wrapper.eq( "id", arr[i] ).or();
+        }
+        wrapper.eq( "id", arr[arr.length - 1] );
+        return judgeQuestionMapper.selectList( wrapper );
     }
 
     @Override

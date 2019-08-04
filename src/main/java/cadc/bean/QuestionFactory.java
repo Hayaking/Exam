@@ -23,7 +23,7 @@ public class QuestionFactory {
         singleQuestion.setChioceD( map.get( "chioceD" ) );
         singleQuestion.setScore( Double.parseDouble( map.get( "score" ) ) );
         singleQuestion.setLevel( Integer.parseInt( map.get( "level" ) ) );
-        singleQuestion.setSubject( map.get( "subjet" ) );
+        singleQuestion.setSubject( map.get( "subject" ) );
         return singleQuestion;
     }
 }

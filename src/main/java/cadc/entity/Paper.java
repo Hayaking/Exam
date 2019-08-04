@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author haya
@@ -22,7 +23,6 @@ public class Paper extends Model<Paper> implements Serializable {
     private String paperCreator;
     private String paperCreateTime;
     private int examId;
-
     public Paper() {
     }
 

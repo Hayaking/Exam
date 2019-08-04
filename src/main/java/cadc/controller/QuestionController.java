@@ -14,6 +14,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -137,5 +138,14 @@ public class QuestionController {
                 break;
         }
         return MessageFactory.message( SUCCESS );
+    }
+    @RequestMapping(value = "/question/test", method = RequestMethod.GET)
+    public Object test() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put( "essay", essayQuestionService.getRandom( 5 ) );
+        map.put( "judge", judgeQuestionService.getRandom( 5 ) );
+        map.put( "single", singleQuestionService.getRandom( 5 ) );
+        map.put( "multi", multiQuestionService.getRandom( 5 ) );
+        return map;
     }
 }
