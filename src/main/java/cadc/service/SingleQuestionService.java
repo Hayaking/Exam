@@ -1,6 +1,8 @@
 package cadc.service;
 
 import cadc.entity.SingleQuestion;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -14,6 +16,8 @@ public interface SingleQuestionService extends IService<SingleQuestion> {
     boolean deleteById(int id);
     SingleQuestion getById(int id);
 
+
+    IPage<SingleQuestion> getAll(Page<SingleQuestion> page);
 
 }
 
