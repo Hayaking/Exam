@@ -1,6 +1,7 @@
 package cadc.bean;
 
 import cadc.entity.EssayQuestion;
+import cadc.entity.JudgeQuestion;
 import cadc.entity.MultiQuestion;
 import cadc.entity.SingleQuestion;
 
@@ -59,5 +60,18 @@ public class QuestionFactory {
         essayQuestion.setLevel( Integer.parseInt( map.get( "level" ) ) );
         essayQuestion.setSubject( map.get( "subject" ) );
         return essayQuestion;
+    }
+    public  static JudgeQuestion judgeQuestionFactory(Map<String, String> map) {
+        JudgeQuestion judgeQuestion = new JudgeQuestion();
+        if (map.get( "id" ) != null) {
+            judgeQuestion.setId( Integer.parseInt( map.get( "id" ) ) );
+        } else {
+            judgeQuestion.setId( 0 );
+        }
+        judgeQuestion.setAnswer( map.get( "answer" ) );
+        judgeQuestion.setScore( Double.parseDouble( map.get( "score" ) ) );
+        judgeQuestion.setLevel( Integer.parseInt( map.get( "level" ) ) );
+        judgeQuestion.setSubject( map.get( "subject" ) );
+        return judgeQuestion;
     }
 }
