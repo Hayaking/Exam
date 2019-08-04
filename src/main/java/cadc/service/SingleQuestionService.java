@@ -12,9 +12,6 @@ import java.util.List;
  */
 public interface SingleQuestionService extends IService<SingleQuestion> {
     List<SingleQuestion> getRandom(int size);
-    boolean add(SingleQuestion singleQuestion);
-    boolean deleteById(int id);
-    SingleQuestion getById(int id);
 
 
     IPage<SingleQuestion> getAll(Page<SingleQuestion> page);
