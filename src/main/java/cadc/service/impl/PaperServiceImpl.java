@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,10 @@ import java.util.Map;
 @Transactional(rollbackFor = Exception.class)
 public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements PaperService {
 
+    @Resource
+    private PaperMapper paperMapper;
+    @Autowired
+    private PaperQuestionService paperQuestionService;
     @Autowired
     private EssayQuestionService essayQuestionService;
     @Autowired
@@ -29,12 +34,16 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
 
     @Override
     public Map<String, Object> generatePaper(Paper paper, int eSize, int jSize, int mSize, int sSize) {
+        paper.insert();
         HashMap<String, Object> map = new HashMap<>( 5 );
         map.put( "paper", paper );
         map.put( "essay", essayQuestionService.getRandom( eSize ) );
         map.put( "judge", judgeQuestionService.getRandom( eSize ) );
         map.put( "multi", multiQuestionService.getRandom( eSize ) );
         map.put( "single", singleQuestionService.getRandom( eSize ) );
+        paperQuestionService.insertList( map );
         return map;
     }
+
+
 }

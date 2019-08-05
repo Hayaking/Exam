@@ -2,24 +2,22 @@ package cadc.controller;
 
 import cadc.bean.QuestionFactory;
 import cadc.bean.message.MessageFactory;
-import cadc.bean.message.STATE;
-import cadc.entity.*;
+import cadc.entity.EssayQuestion;
+import cadc.entity.JudgeQuestion;
+import cadc.entity.MultiQuestion;
+import cadc.entity.SingleQuestion;
 import cadc.service.EssayQuestionService;
 import cadc.service.JudgeQuestionService;
 import cadc.service.MultiQuestionService;
 import cadc.service.SingleQuestionService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import static cadc.bean.message.STATE.STATE_INVITE_SUCCESS;
 import static cadc.bean.message.STATE.SUCCESS;
 
 /**
@@ -79,7 +77,6 @@ public class QuestionController {
 
     @RequestMapping(value = "/question/{type}", method = RequestMethod.POST)
     public Object saveQuestion(@RequestBody Map<String, String> object, @PathVariable String type) {
-
         switch (type) {
             case "single":
                 SingleQuestion singleQuestion = QuestionFactory.singleQuestionFactory( object );
@@ -90,7 +87,7 @@ public class QuestionController {
                 }
                 break;
             case "judge":
-                JudgeQuestion judgeQuestion = (JudgeQuestion) object;
+                JudgeQuestion judgeQuestion = QuestionFactory.judgeQuestionFactory( object );
                 if (judgeQuestion.getId() == 0) {
                     judgeQuestion.insert();
                 } else {
@@ -98,7 +95,7 @@ public class QuestionController {
                 }
                 break;
             case "multi":
-                MultiQuestion multiQuestion = (MultiQuestion) object;
+                MultiQuestion multiQuestion = QuestionFactory.multiQuestionFactory( object );
                 if (multiQuestion.getId() == 0) {
                     multiQuestion.insert();
                 } else {
@@ -106,7 +103,7 @@ public class QuestionController {
                 }
                 break;
             case "essay":
-                EssayQuestion essayQuestion = (EssayQuestion) object;
+                EssayQuestion essayQuestion = QuestionFactory.essayQuestionFactory( object );
                 if (essayQuestion.getId() == 0) {
                     essayQuestion.insert();
                 } else {
@@ -141,7 +138,7 @@ public class QuestionController {
     }
     @RequestMapping(value = "/question/test", method = RequestMethod.GET)
     public Object test() {
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>(5);
         map.put( "essay", essayQuestionService.getRandom( 5 ) );
         map.put( "judge", judgeQuestionService.getRandom( 5 ) );
         map.put( "single", singleQuestionService.getRandom( 5 ) );

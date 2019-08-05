@@ -12,6 +12,7 @@ public interface PaperService extends IService<Paper> {
 
     /**
      * 随机选择题数生成试卷
+     *
      * @param paper
      * @param eSize 简答题数量
      * @param jSize 判断题数量
@@ -20,4 +21,7 @@ public interface PaperService extends IService<Paper> {
      * @return 键值对的方式保存 paper - xxx, single - xxx, essay - xxx, multi - xxx, judge - xxx
      */
     Map<String, Object> generatePaper(Paper paper, int eSize, int jSize, int mSize, int sSize);
+
+
+
 }

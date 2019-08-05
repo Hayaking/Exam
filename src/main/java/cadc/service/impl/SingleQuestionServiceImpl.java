@@ -29,11 +29,14 @@ public class SingleQuestionServiceImpl extends ServiceImpl<SingleQuestionMapper,
     public List<SingleQuestion> getRandom(int size) {
         QueryWrapper<SingleQuestion> wrapper = new QueryWrapper<>();
         Integer all = singleQuestionMapper.selectCount( wrapper );
-        int[] arr = Utils.random( all, size );
-        for (int i = 0; i <= arr.length-1; i++) {
-            wrapper.eq( "id", arr[i] ).or();
+        if (size < all) {
+            int[] arr = Utils.random( all, size );
+            for (int i = 0; i <= arr.length-1; i++) {
+                wrapper.eq( "id", arr[i] ).or();
+            }
+            wrapper.eq( "id", arr[arr.length - 1] );
         }
-        wrapper.eq( "id", arr[arr.length - 1] );
+
         return singleQuestionMapper.selectList( wrapper );
     }
 

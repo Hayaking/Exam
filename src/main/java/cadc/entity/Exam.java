@@ -24,4 +24,6 @@ public class Exam extends Model<Exam> implements Serializable {
     private Date examStartTime;
     private int examCreator;
     private int schoolId;
+    private String examState;
+    private String paperState;
 }

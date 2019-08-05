@@ -23,4 +23,13 @@ public class PaperQuetion extends Model<PaperQuetion> implements Serializable {
     private int paperId;
     private int questionId;
     private String questionType;
+
+    public PaperQuetion() {
+    }
+
+    public PaperQuetion(int paperId, int questionId, String questionType) {
+        this.paperId = paperId;
+        this.questionId = questionId;
+        this.questionType = questionType;
+    }
 }

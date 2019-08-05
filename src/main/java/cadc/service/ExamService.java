@@ -11,4 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ExamService extends IService<Exam> {
     IPage<Exam> getAllExam(Page<Exam> page);
+
+    boolean updatePaperState(int id, String state);
 }

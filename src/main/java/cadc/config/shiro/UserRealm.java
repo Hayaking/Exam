@@ -55,7 +55,7 @@ public class UserRealm extends AuthorizingRealm {
             }
         }
         info.setRoles( roles );
-        return null;
+        return info;
     }
 
     /**

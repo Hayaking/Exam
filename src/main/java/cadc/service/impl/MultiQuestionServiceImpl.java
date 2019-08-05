@@ -28,11 +28,13 @@ public class MultiQuestionServiceImpl extends ServiceImpl<MultiQuestionMapper, M
     public List<MultiQuestion> getRandom(int size) {
         QueryWrapper<MultiQuestion> wrapper = new QueryWrapper<>();
         Integer all = multiQuestionMapper.selectCount( wrapper );
-        int[] arr = Utils.random( all, size );
-        for (int i = 0; i <= arr.length-1; i++) {
-            wrapper.eq( "id", arr[i] ).or();
+        if (size < all) {
+            int[] arr = Utils.random( all, size );
+            for (int i = 0; i <= arr.length-1; i++) {
+                wrapper.eq( "id", arr[i] ).or();
+            }
+            wrapper.eq( "id", arr[arr.length - 1] );
         }
-        wrapper.eq( "id", arr[arr.length - 1] );
         return multiQuestionMapper.selectList( wrapper );
     }
 

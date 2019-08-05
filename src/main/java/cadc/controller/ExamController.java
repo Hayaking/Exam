@@ -26,6 +26,7 @@ public class ExamController {
     @RequestMapping(value = "/exam", method = RequestMethod.POST)
     public Object addExam(@RequestBody Exam exam) {
         boolean flag;
+        exam.setPaperState( "no_done" );
         if (exam.getId() == 0) {
             flag = exam.insert();
         } else {

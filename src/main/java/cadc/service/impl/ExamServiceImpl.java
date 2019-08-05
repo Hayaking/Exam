@@ -24,4 +24,8 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements Ex
     public IPage<Exam> getAllExam(Page<Exam> page) {
         return examMapper.selectPage( page, new QueryWrapper<>() );
     }
+    @Override
+    public boolean updatePaperState(int id, String state) {
+        return examMapper.updatePaperState( id, state ) > 0;
+    }
 }
