@@ -65,8 +65,10 @@ public class LoginController {
     @RequiresAuthentication
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public Object getUserInfo() {
+        log.warn( "info" );
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
+        log.warn( user );
         String account = user.getAccount();
         user = userService.getByAccount( account );
         return MessageFactory.message( SUCCESS, user );

@@ -1,5 +1,6 @@
 package cadc.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 @TableName("paper")
 public class Paper extends Model<Paper> implements Serializable {
     private static final long serialVersionUID = 1L;
-    @TableId
+    @TableId(type = IdType.AUTO)
     private int id;
     private String paperCreator;
     private String paperCreateTime;

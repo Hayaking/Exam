@@ -2,7 +2,9 @@ package cadc.controller;
 
 import cadc.bean.message.MessageFactory;
 import cadc.bean.message.STATE;
+import cadc.entity.Role;
 import cadc.entity.User;
+import cadc.entity.UserRole;
 import cadc.service.UserService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,8 +26,9 @@ public class UserController {
 
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     public Object upDateStudent(@RequestBody User user) {
-        log.info( user );
-        boolean flag = user.updateById();
+        boolean flag = user.insertOrUpdate();
+        UserRole userRole = new UserRole( user.getId(), 2 );
+        userRole.insertOrUpdate();
         return MessageFactory.message( flag ? SUCCESS : FAILED );
     }
 

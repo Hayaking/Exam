@@ -1,5 +1,6 @@
 package cadc.util;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -19,5 +20,10 @@ public class Utils {
             flag[t] = true;
         }
         return res;
+    }
+    public static String remove1(String str) {
+        char[] chars = str.toCharArray();
+        Arrays.sort( chars );
+        return String.valueOf( chars ).replace( "|", "" );
     }
 }

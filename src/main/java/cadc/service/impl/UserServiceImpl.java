@@ -32,6 +32,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    public String getNameById(int id) {
+        return userMapper.selectById( id ).getName();
+    }
+
+    @Override
     public boolean add(User user) {
         int res = userMapper.insert(user);
         return res > 0;
@@ -50,12 +55,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getByAccount(String account) {
-        return null;
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq( "account", account );
+        return userMapper.selectOne( wrapper );
     }
 
     @Override
     public User getByName(String name) {
-        return null;
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq( "name", name );
+        return userMapper.selectOne( wrapper );
     }
 
     @Override

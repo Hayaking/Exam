@@ -22,6 +22,6 @@ public interface PaperService extends IService<Paper> {
      */
     Map<String, Object> generatePaper(Paper paper, int eSize, int jSize, int mSize, int sSize);
 
-
+    Map<String, Object> getByExamId(int examId);
 
 }

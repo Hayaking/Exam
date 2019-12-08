@@ -1,8 +1,9 @@
 package cadc.service.impl;
 
-import cadc.entity.Paper;
+import cadc.entity.*;
 import cadc.mapper.PaperMapper;
 import cadc.service.*;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,6 +44,21 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
         map.put( "multi", multiQuestionService.getRandom( eSize ) );
         map.put( "single", singleQuestionService.getRandom( eSize ) );
         paperQuestionService.insertList( map );
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> getByExamId(int examId) {
+        QueryWrapper<Paper> paperQueryWrapper = new QueryWrapper<>();
+        paperQueryWrapper.eq( "exam_id", examId );
+        HashMap<String, Object> map = new HashMap<>( 5 );
+        Paper paper = paperMapper.selectOne( paperQueryWrapper );
+        int paperId = paper.getId();
+        map.put( "paper",  paper);
+        map.put( "essay",paperQuestionService.getEssayByPaperId( paperId ) );
+        map.put( "judge", paperQuestionService.getJudgeByPaperId( paperId ) );
+        map.put( "multi", paperQuestionService.getMultiByPaperId( paperId ) );
+        map.put( "single", paperQuestionService.getSingleByPaperId( paperId ) );
         return map;
     }
 

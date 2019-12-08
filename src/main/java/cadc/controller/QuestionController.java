@@ -12,6 +12,7 @@ import cadc.service.MultiQuestionService;
 import cadc.service.SingleQuestionService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.log4j.Log4j2;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,6 +76,7 @@ public class QuestionController {
         return MessageFactory.message( SUCCESS, res );
     }
 
+    @RequiresRoles( "老师" )
     @RequestMapping(value = "/question/{type}", method = RequestMethod.POST)
     public Object saveQuestion(@RequestBody Map<String, String> object, @PathVariable String type) {
         switch (type) {
@@ -116,6 +118,7 @@ public class QuestionController {
         return MessageFactory.message( SUCCESS );
     }
 
+    @RequiresRoles( "老师" )
     @RequestMapping(value = "/question/{type}/{id}", method = RequestMethod.DELETE)
     public Object deleteSingleQuestion(@PathVariable String type, @PathVariable String id) {
         switch (type) {
@@ -136,6 +139,7 @@ public class QuestionController {
         }
         return MessageFactory.message( SUCCESS );
     }
+
     @RequestMapping(value = "/question/test", method = RequestMethod.GET)
     public Object test() {
         HashMap<String, Object> map = new HashMap<>(5);

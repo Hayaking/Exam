@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserService extends IService<User> {
     User get(String account, String password);
 
+    String getNameById(int id);
+
     boolean add(User user);
 
     boolean delete(int id);

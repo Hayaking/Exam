@@ -2,8 +2,6 @@ package cadc.controller;
 
 import cadc.bean.message.MessageFactory;
 import cadc.entity.Permission;
-import cadc.entity.PermissionMenu;
-import cadc.entity.RolePermission;
 import cadc.service.PermissionService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static cadc.bean.message.STATE.FAILED;
 import static cadc.bean.message.STATE.SUCCESS;
 
 /**

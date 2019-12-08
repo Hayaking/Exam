@@ -1,10 +1,11 @@
 package cadc.controller;
 
 import cadc.bean.message.MessageFactory;
-import cadc.bean.message.STATE;
+import cadc.entity.Exam;
 import cadc.entity.Paper;
 import cadc.entity.User;
-import cadc.service.*;
+import cadc.service.ExamService;
+import cadc.service.PaperService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -18,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import static cadc.bean.message.STATE.*;
+import static cadc.bean.message.STATE.SUCCESS;
 
 /**
  * @author haya
@@ -47,7 +48,7 @@ public class PaperController {
         Subject subject = SecurityUtils.getSubject();
         // 判断是否已经有老师创建的试卷
         if ("teacher_done".equals( examService.getById( examId ).getPaperState() )) {
-            return MessageFactory.message( FAILED );
+            return MessageFactory.message( SUCCESS, paperService.getByExamId( examId ));
         }
         // 将考试的试卷状态标志为老师创建
         if (subject.hasRole( "老师" )) {
@@ -60,6 +61,24 @@ public class PaperController {
         Map<String, Object> res = paperService.generatePaper(
                 new Paper( account, sdf.format( new Date() ), examId ),
                 eSize, jSize, mSize, sSize );
+        return MessageFactory.message( SUCCESS, res );
+    }
+
+    @RequestMapping(value = "/paper/{examId}", method = RequestMethod.GET)
+    public Object getPaper(@PathVariable int examId) {
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        String account = user.getAccount();
+        SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+        Exam exam = examService.getById( examId );
+        Map<String, Object> res = null;
+        if ("random".equals( exam.getPaperState() )) {
+            res = paperService.generatePaper(
+                    new Paper( account, sdf.format( new Date() ), examId ),
+                    5, 5, 5, 5 );
+        } else {
+            res = paperService.getByExamId( examId );
+        }
         return MessageFactory.message( SUCCESS, res );
     }
 }
